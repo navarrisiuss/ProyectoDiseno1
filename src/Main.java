@@ -67,7 +67,7 @@ public class Main {
             add("Terror");
         }}, "Jiturra!, un idiota", 2, RestriccionEdad.ADOLESCENTES.name(), LocalDate.of(2023, 12, 15), "Capitan");
 
-        cuenta1.actualizarAMembresiaStardard();
+        cuenta1.actualizarAMembresiaStardard(Monedas.USD.name());
 
         cuentas.add(cuenta1);
         cuentas.add(cuenta2);
