@@ -89,6 +89,14 @@ public class Main {
         System.out.println(cuenta1.getPagosPeliculas());
         System.out.println(cuenta1);
         cuenta1.removePerfil("Perfil3Lopesito");
+
+        Perfil perfilTestLopesito = cuenta1.getPerfiles().get(1);
+        perfilTestLopesito.crearListaPersonalizada("LISTA PARA VER");
+        perfilTestLopesito.addListaPersonalizada("LISTA PARA VER", peli1);
+        perfilTestLopesito.addListaPersonalizada("LISTA PARA VER", peli2);
+        System.out.println("PERFIL LOPESITO: ");
+        System.out.println(perfilTestLopesito);
+        System.out.println("-------------------------------");
     }
 
     public static Pelicula crearPelicula(Catalogo CATALOGO, String titulo, ArrayList<String> elenco, double costo,

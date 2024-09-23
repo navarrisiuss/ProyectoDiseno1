@@ -5,6 +5,7 @@ import Interfaces.GenerarEnlacePublico;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ListaPersonalizada implements GenerarEnlacePublico {
     private String nombre;
@@ -54,6 +55,22 @@ public class ListaPersonalizada implements GenerarEnlacePublico {
 
     @Override
     public void generarEnlacePublico() {
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder cadena = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            int index = random.nextInt(caracteres.length());
+            cadena.append(caracteres.charAt(index));
+        }
+        this.enlacePublico = cadena.toString();
+    }
 
+    @Override
+    public String toString() {
+        return "ListaPersonalizada{" +
+                "nombre='" + nombre + '\'' +
+                ", listaContenidoMultimedia=" + listaContenidoMultimedia +
+                ", enlacePublico='" + enlacePublico + '\'' +
+                '}';
     }
 }
