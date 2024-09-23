@@ -30,6 +30,10 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
         addPerfil(new Perfil(nombre, icono, lenguaje, isPerfilInfantil));
     }
 
+    public List<Perfil> getPerfiles() {
+        return perfiles;
+    }
+
     private void addPerfil(Perfil perfil) {
         if (this.perfiles.size() < this.MAX_PERFILES) {
             this.perfiles.add(perfil);

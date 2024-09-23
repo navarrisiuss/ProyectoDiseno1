@@ -1,4 +1,5 @@
 import Clases.*;
+import ClasesAbstractas.ContenidoMultimedia;
 import Enums.Lenguajes;
 import Enums.RestriccionEdad;
 
@@ -51,6 +52,13 @@ public class Main {
         }});
         CATALOGO.addContenidoMultimedia(serie1);
         System.out.println(CATALOGO);
+        System.out.println("------------------------------------------------------------------------------");
+        Cuenta cuentaTest = cuentas.get(1);
+        Perfil perfilTest = cuentaTest.getPerfiles().get(0);
+        System.out.println(perfilTest.toString());
+        ContenidoMultimedia peliculaTest = CATALOGO.getContenidoMultimedia().get(0);
+        System.out.println(peliculaTest.toString());
+        perfilTest.addListaFavoritos(peliculaTest);
     }
 
     public static void rellenarCuentas(ArrayList<Cuenta> cuentas) {
