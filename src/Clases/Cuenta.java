@@ -5,6 +5,7 @@ import Enums.NombrePlanes;
 import Interfaces.ActualizadorMembresias;
 import Interfaces.EncriptadorPassword;
 import Interfaces.InicioSesion;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,17 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
         return perfiles;
     }
 
+    public void removePerfil(String nombrePerfil) {
+        for (Perfil p : perfiles) {
+            if (p.getNombre().equals(nombrePerfil)) {
+                perfiles.remove(p);
+                System.out.println("PERFIL " + nombrePerfil + " ELIMINADO DE LA CUENTA " + this.nombreUsuario);
+                return;
+            }
+        }
+        System.out.println("Error al borrar perfil");
+    }
+
     private void addPerfil(Perfil perfil) {
         if (this.perfiles.size() < this.MAX_PERFILES) {
             this.perfiles.add(perfil);
@@ -75,22 +87,8 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
         }
     }
 
-    public void comprarPelicula(Pelicula pelicula) {
-        if (pelicula.isPago()) {
-            this.peliculasCompradas.add(pelicula);
-            System.out.println("Pelicula comprada");
-        }
-        else {
-            System.out.println("Pelicula no disponible para compra");
-        }
-    }
-
-    public String mostrarPeliculasCompradas() {
-        String peliculas = "";
-        for (Pelicula pelicula : this.peliculasCompradas) {
-            peliculas += pelicula.getTitulo() + "\n";
-        }
-        return peliculas;
+    private void addPago(Pago pago) {
+        this.registroPagos.add(pago);
     }
 
     @Override
@@ -115,11 +113,10 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
     }
 
     @Override
-    public void actualizarAMembresiaStardard() {
+    public void actualizarAMembresiaStardard(String moneda) {
         if (this.medioPago == null) {
             System.out.println("Agregue un medio de pago");
-        }
-        else {
+        } else {
             String nombre = NombrePlanes.STANDARD.name();
             Plan plan = new Plan(nombre);
             LocalDate fechaInicio = LocalDate.now();
@@ -129,15 +126,15 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
             m.setMedioPago(this.medioPago);
             this.membresia = m;
             this.medioPago.cobrar();
+            this.addPago(new Pago(moneda, m));
         }
     }
 
     @Override
-    public void actualizarAMembresiaPremium() {
+    public void actualizarAMembresiaPremium(String moneda) {
         if (this.medioPago == null) {
             System.out.println("Agregue un medio de pago");
-        }
-        else {
+        } else {
             String nombre = NombrePlanes.PREMIUM.name();
             Plan plan = new Plan(nombre);
             LocalDate fechaInicio = LocalDate.now();
@@ -147,6 +144,7 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
             m.setMedioPago(this.medioPago);
             this.membresia = m;
             this.medioPago.cobrar();
+            this.addPago(new Pago(moneda, m));
         }
     }
 
@@ -165,6 +163,9 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
                 ", membresia=" + membresia +
                 ", perfiles=" + perfiles +
                 ", peliculasCompradas=" + peliculasCompradas +
+                ", registroPagos=" + registroPagos +
+                ", medioPago=" + medioPago +
+                ", pagosPeliculas=" + pagosPeliculas +
                 '}';
     }
 }

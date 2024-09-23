@@ -104,7 +104,7 @@ public class Perfil implements Busqueda {
         this.listasPersonalizadas.add(lista);
     }
 
-    public void agregarAListaPersonalizada(String nombre, ContenidoMultimedia contenidoMultimedia) {
+    public void addListaPersonalizada(String nombre, ContenidoMultimedia contenidoMultimedia) {
         boolean agregada = false;
         if (isContenidoInfantil(contenidoMultimedia)) {
             for (ListaPersonalizada l : this.listasPersonalizadas) {

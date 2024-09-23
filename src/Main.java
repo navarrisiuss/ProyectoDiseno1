@@ -66,13 +66,7 @@ public class Main {
             add("Comedia");
             add("Terror");
         }}, "Jiturra!, un idiota", 2, RestriccionEdad.ADOLESCENTES.name(), LocalDate.of(2023, 12, 15), "Capitan");
-        Pelicula peli3 = crearPelicula(CATALOGO, "Aventuras de Peque", new ArrayList<>() {{
-            add("Peque");
-            add("Amigo");
-        }}, 90, new ArrayList<>() {{
-            add("Animación");
-            add("Aventura");
-        }}, "Una película divertida para niños", 4, RestriccionEdad.KIDS.name(), LocalDate.of(2022, 6, 1), "Director Infantil");
+
         cuenta1.actualizarAMembresiaStardard();
 
         cuentas.add(cuenta1);
@@ -89,11 +83,24 @@ public class Main {
         cuenta2.crearPerfil("Curly", ">:V", Lenguajes.ENGLISH.name(), true);
         TarjetaCredito tarjetaCredito = new TarjetaCredito("Lopesito", "123456789",
                 LocalDate.of(2024, 2, 10), "123");
+        PayPal paypal = new PayPal("capi@capi.cap", "d1b09b3f-8b45-42cf-94b9-61b65cd6b434");
         cuenta1.setMedioPago(tarjetaCredito);
-        cuenta1.actualizarAMembresiaStardard();
+        cuenta2.setMedioPago(paypal);
+        cuenta2.actualizarAMembresiaPremium(Monedas.CLP.name());
+        cuenta1.actualizarAMembresiaStardard(Monedas.CLP.name());
         cuenta1.comprarPelicula(peli1, Monedas.USD.name());
         cuenta1.comprarPelicula(peli2, Monedas.CLP.name());
         System.out.println(cuenta1.getPagosPeliculas());
+        System.out.println(cuenta1);
+        cuenta1.removePerfil("Perfil3Lopesito");
+
+        Perfil perfilTestLopesito = cuenta1.getPerfiles().get(1);
+        perfilTestLopesito.crearListaPersonalizada("LISTA PARA VER");
+        perfilTestLopesito.addListaPersonalizada("LISTA PARA VER", peli1);
+        perfilTestLopesito.addListaPersonalizada("LISTA PARA VER", peli2);
+        System.out.println("PERFIL LOPESITO: ");
+        System.out.println(perfilTestLopesito);
+        System.out.println("-------------------------------");
     }
 
     public static Pelicula crearPelicula(Catalogo CATALOGO, String titulo, ArrayList<String> elenco, double costo,
