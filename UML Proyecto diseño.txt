@@ -1,4 +1,4 @@
-@startuml DiagramaClase
+@startuml
 abstract RegistroReproduccion{
 }
 
@@ -30,6 +30,9 @@ ADOLECENTES
 ADULTOS
 }
 
+interface ConvertidorMonedas{
++convertidorMoneda(): void
+}
 
 interface EncriptadorPassword{
 +encriptarPassword(): string
@@ -38,8 +41,8 @@ interface EncriptadorPassword{
 
 interface ActualizadorMembresias{
 +actualizarAGratis(): Membresia
-+actualizarAStardard(): Membresia
-+actualizarAPremium(): Membresia
++actualizarAStardard(String moneda): Membresia
++actualizarAPremium(String moneda): Membresia
 }
 
 
@@ -70,11 +73,12 @@ interface Visualizacion{
 }
 
 
-class Pago{
--fecha: Date
+class Pago implements ConvertidorMonedas{
+-fecha: LocalDate
 -monto:double
 -moneda: String
 -membresia: Membresia
+-medioPago: MedioPago
 }
 
 class Catalogo extends ContenidoMultimedia{
@@ -85,40 +89,53 @@ class Catalogo extends ContenidoMultimedia{
 
 class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMembresias{
 -nombreUsuario: String
--correo: String
+-email: String
 -password: String
+-membresia: Membresia
+-perfiles: List<Perfil>
+-peliculasCompradas: List<Pelicula>
+-registroPagos: List<Pago>
+-medioPago: MedioPago
+-pagosPeliculas: List<Comprapelicula>
 +iniciarSecion(): void
++comprarPelicula(Pelicula pelicula, String moneda): void
++creaPerfil(String nombre, String icono, String lenguaje, boolean isPerfilInfantil): void
++removePerfil(String nombre): void
 }
 
 
 
 class Membresia {
--fechaInicio: Date
--FechaSuiguimientoCobros: Date
--FechaTermino: Date
+-plan: Plan
+-medioPago: MedioPago
+-fechaInicio: LocalDate
+-FechaSuiguimientoCobros: LocalDate
+-FechaTermino: LocalDate
 }
 
 
-class CompraPelicula{
--fechaCompra: Date
+class CompraPelicula implements ConvertidorMonedas{
+-pelicula: Pelicula
+-fechaCompra: LocalDate
 -precio: Double
 -moneda: String
+-medioPago: MedioPago
 }
 
 class Perfil implements Busqueda, Visualizacion{
 -nombre: String
 -icono: String
 -lenguaje: String
--esPerfilDeNinos: Boolean
+-isPerfilDeNinos: Boolean
 -listaFavoritos:List<ContenidoMultimedia>
 -listaPersonalizada: List<ListaPersonalizada>
 -registroContenidoVisto: List<RegistroReproduccion>
 -isContenidoInfantil(ContenidoMultimedia contenidoMultimedia): boolean
-+buscarContenido(Catalogo catalogo,String nombre):void
+-buscarContenido(Catalogo catalogo,String nombre):void
++buscarContenido(Catalogo catalogo, String nombre): void
 +addListaFavoritos(ContenidoMultimedia contenidoMultimedia):void
 +crearListaPersonalizada(String nombre):void
-+agregarAListaPersonalizada(String nombre, ContenidoMultimedia contenidoMultimedia):void
-+eliminar():void
++addAListaPersonalizada(String nombre, ContenidoMultimedia contenidoMultimedia):void
 }
 
 class Plan{
@@ -135,7 +152,7 @@ abstract MedioPago implements Cobrar{
 class CodigoRegalo extends MedioPago{
 -codigo: String
 -descripcion: String
--fechaExpiracion: Date
+-fechaExpiracion: LocalDate
 }
 
 class PagoTerceros extends MedioPago{
@@ -146,7 +163,7 @@ refProveedor: String
 Class TarjetaCredito extends MedioPago implements EncriptadorHash{
 nombreTitular: String
 numeroTarjeta: String
-fechaExpiracion: Date
+fechaExpiracion: LocalDate
 codigoVerificador: String
 }
 
@@ -157,13 +174,17 @@ Class TarjetaDebito extends MedioPago implements EncriptadorHash{
 }
 
 class Paypal extends MedioPago{
--correo: String
+-email: String
 -tokenVeridficacion: String
 }
 
 class ListaPersonalizada implements GenerarEnlacePublico{
 -nombre: String
+-listaContenidoMultimedia: List<ContenidoMultimedia>
 -enlacePublico: String
++addContenido(ContenidoMultimedia contenidoMultimedia): void
++removeContenido(ContenidoMultimedia contenidoMultimedia): ): void
+
 }
 
 class RegistroReproduccionPelicula extends RegistroReproduccion{
@@ -180,24 +201,26 @@ class RegistroReproduccionSerie extends RegistroReproduccion{
 -ultimoEpisodioVisto: Episodio 
 }
 
-abstract ContenidoMultimedia{
+abstract ContenidoMultimedia implements Visualizacion {
 -titulo: String
 -descripcion: String
--categorias: String
--fechaLanzamientio: Date
+-categorias: List<String>
+-fechaLanzamientio: LocalDate
 -restriccionEda: String
-+elimiar():void
+-estrellas: int
+
 }
 
 class Pelicula extends ContenidoMultimedia{
 -director: String
--elenco: String
+-elenco: List<String>
 -isPago:boolean
+-costo: double
 }
 
 class Temporada{
 -numeroTemporada: int
--fechaLanzamiento: Date
+-fechaLanzamiento: LocalDate
 -episodios: List<Episodio>
 }
 
@@ -206,13 +229,14 @@ class Serie extends ContenidoMultimedia{
 }
 
 class Episodio{
--numeroEpisodio: int
+-numEpisodio: int
 -nombre: String
 -director: String
--elenco: String
--duracion: int
--fechaLanzamiento:Date
+-elenco: List<String>
+-duracion: LocalTime
+-fechaLanzamiento:LocalDate
 }
+
 Cuenta -- NombrePlanes
 Lenguajes <--- Perfil
 Monedas <--- MedioPago
@@ -231,5 +255,5 @@ RegistroReproduccionPelicula "1"---"1" Pelicula
 RegistroReproduccionSerie "1"---"0..*" Episodio
 ListaPersonalizada "1"---"0..*" ContenidoMultimedia
 Serie "1"---"1..*" Temporada
-Cuenta "1"---"1" Membresia 
+Cuenta "1"---"1" Membresia
 @enduml
