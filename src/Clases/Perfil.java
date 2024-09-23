@@ -166,6 +166,12 @@ public class Perfil implements Busqueda {
         });
     }
 
+    public void eliminarDeListasPersonalizadas(ContenidoMultimedia contenido) {
+        for (ListaPersonalizada lista : listasPersonalizadas) {
+            lista.removeContenido(contenido);
+        }
+    }
+
     public List<ContenidoMultimedia> getContenidoMultimediaFavorito() {
         List<ContenidoMultimedia> contenidoMultimediaFavorito = new ArrayList<>();
         for (ContenidoMultimedia contenidoMultimedia : listaFavoritos) {

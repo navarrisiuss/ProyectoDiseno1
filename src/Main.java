@@ -30,7 +30,8 @@ public class Main {
         perfilTest1.addListaFavoritos(peliculaTest);
         System.out.println(CATALOGO.buscarContenido(perfilTest2, "Shaggy"));
         System.out.println(CATALOGO.buscarContenido(perfilTest1, "Shaggy"));
-        CATALOGO.eliminarContenidoMultimedia(peliculaTest, cuentaTest1);
+        
+        
     }
 
     public static void rellenarCuentas(Catalogo CATALOGO, ArrayList<Cuenta> cuentas) {
@@ -98,9 +99,12 @@ public class Main {
         perfilTestLopesito.crearListaPersonalizada("LISTA PARA VER");
         perfilTestLopesito.addListaPersonalizada("LISTA PARA VER", peli1);
         perfilTestLopesito.addListaPersonalizada("LISTA PARA VER", peli2);
+        perfilTestLopesito.addListaFavoritos(peli1);
         System.out.println("PERFIL LOPESITO: ");
         System.out.println(perfilTestLopesito);
         System.out.println("-------------------------------");
+        CATALOGO.eliminarContenidoMultimedia(peli1, cuentas);
+        System.out.println(perfilTestLopesito);
     }
 
     public static Pelicula crearPelicula(Catalogo CATALOGO, String titulo, ArrayList<String> elenco, double costo,

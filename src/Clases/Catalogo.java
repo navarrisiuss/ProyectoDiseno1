@@ -32,12 +32,19 @@ public class Catalogo {
         return resultados;
     }
 
-    public void eliminarContenidoMultimedia(ContenidoMultimedia contenidoMultimedia, Cuenta cuenta) {
+    public void eliminarContenidoMultimedia(ContenidoMultimedia contenidoMultimedia, ArrayList<Cuenta> cuentas) {
         this.contenidoMultimedia.remove(contenidoMultimedia);
-        List<Perfil> perfiles = cuenta.getPerfiles();
+        ArrayList<Perfil> perfiles = new ArrayList<>();
+        for (Cuenta cuenta : cuentas) {
+            Cuenta cuentaProvisoria = cuenta;
+            for (Perfil perfil : cuentaProvisoria.getPerfiles()) {
+                perfiles.add(perfil);
+            }
+        }
         for (Perfil perfil : perfiles) {
             perfil.eliminarDeFavoritos(contenidoMultimedia);
             perfil.eliminarDeReproduccion(contenidoMultimedia);
+            perfil.eliminarDeListasPersonalizadas(contenidoMultimedia);
         }
     }
 
