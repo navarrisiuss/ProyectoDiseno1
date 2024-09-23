@@ -20,14 +20,6 @@ public class Catalogo {
         this.contenidoMultimedia.add(contenidoMultimedia);
     }
 
-    public void deleteContenidoMultimedia(ContenidoMultimedia contenidoMultimedia) {
-        for (ContenidoMultimedia multimedia : this.contenidoMultimedia) {
-            if (multimedia.equals(contenidoMultimedia)) {
-                this.contenidoMultimedia.remove(multimedia);
-            }
-        }
-    }
-
     public List<ContenidoMultimedia> buscarContenido(Perfil perfil, String palabraClave) {
         List<ContenidoMultimedia> resultados = contenidoMultimedia.stream()
                 .filter(contenido -> contenido.getTitulo().toLowerCase().contains(palabraClave.toLowerCase()))
@@ -38,6 +30,15 @@ public class Catalogo {
             System.out.println("No se encontraron coincidencias para la búsqueda: " + palabraClave);
         }
         return resultados;
+    }
+
+    public void eliminarContenidoMultimedia(ContenidoMultimedia contenidoMultimedia, Cuenta cuenta) {
+        this.contenidoMultimedia.remove(contenidoMultimedia);
+        List<Perfil> perfiles = cuenta.getPerfiles();
+        for (Perfil perfil : perfiles) {
+            perfil.eliminarDeFavoritos(contenidoMultimedia);
+            perfil.eliminarDeReproduccion(contenidoMultimedia);
+        }
     }
 
     @Override

@@ -30,6 +30,7 @@ public class Main {
         perfilTest1.addListaFavoritos(peliculaTest);
         System.out.println(CATALOGO.buscarContenido(perfilTest2, "Shaggy"));
         System.out.println(CATALOGO.buscarContenido(perfilTest1, "Shaggy"));
+        CATALOGO.eliminarContenidoMultimedia(peliculaTest, cuentaTest1);
     }
 
     public static void rellenarCuentas(Catalogo CATALOGO, ArrayList<Cuenta> cuentas) {

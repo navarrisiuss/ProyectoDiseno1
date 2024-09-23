@@ -150,6 +150,30 @@ public class Perfil implements Busqueda {
         }
     }
 
+    public void eliminarDeFavoritos(ContenidoMultimedia contenido) {
+        listaFavoritos.remove(contenido);
+    }
+
+    public void eliminarDeReproduccion(ContenidoMultimedia contenido) {
+        registroContenidoVisto.removeIf(registro -> {
+            if (registro instanceof RegistroReproduccionSerie registroSerie) {
+                return registroSerie.getSerieVista().equals(contenido);
+            }
+            if (registro instanceof RegistroReproduccionPelicula registroPelicula) {
+                return registroPelicula.getPeliculaVista().equals(contenido);
+            }
+            return false;
+        });
+    }
+
+    public List<ContenidoMultimedia> getContenidoMultimediaFavorito() {
+        List<ContenidoMultimedia> contenidoMultimediaFavorito = new ArrayList<>();
+        for (ContenidoMultimedia contenidoMultimedia : listaFavoritos) {
+            contenidoMultimediaFavorito.add(contenidoMultimedia);
+        }
+        return contenidoMultimediaFavorito;
+    }
+
     @Override
     public String toString() {
         return "Perfil{" +
