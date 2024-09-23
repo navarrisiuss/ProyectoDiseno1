@@ -67,6 +67,17 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
         return perfiles;
     }
 
+    public void removePerfil(String nombrePerfil) {
+        for (Perfil p : perfiles) {
+            if (p.getNombre().equals(nombrePerfil)) {
+                perfiles.remove(p);
+                System.out.println("PERFIL " + nombrePerfil + " ELIMINADO DE LA CUENTA " + this.nombreUsuario);
+                return;
+            }
+        }
+        System.out.println("Error al borrar perfil");
+    }
+
     private void addPerfil(Perfil perfil) {
         if (this.perfiles.size() < this.MAX_PERFILES) {
             this.perfiles.add(perfil);
@@ -101,8 +112,7 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
     public void actualizarAMembresiaStardard() {
         if (this.medioPago == null) {
             System.out.println("Agregue un medio de pago");
-        }
-        else {
+        } else {
             String nombre = NombrePlanes.STANDARD.name();
             Plan plan = new Plan(nombre);
             LocalDate fechaInicio = LocalDate.now();
@@ -119,8 +129,7 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
     public void actualizarAMembresiaPremium() {
         if (this.medioPago == null) {
             System.out.println("Agregue un medio de pago");
-        }
-        else {
+        } else {
             String nombre = NombrePlanes.PREMIUM.name();
             Plan plan = new Plan(nombre);
             LocalDate fechaInicio = LocalDate.now();
@@ -148,6 +157,9 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
                 ", membresia=" + membresia +
                 ", perfiles=" + perfiles +
                 ", peliculasCompradas=" + peliculasCompradas +
+                ", registroPagos=" + registroPagos +
+                ", medioPago=" + medioPago +
+                ", pagosPeliculas=" + pagosPeliculas +
                 '}';
     }
 }

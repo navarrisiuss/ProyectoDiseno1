@@ -79,11 +79,16 @@ public class Main {
         cuenta2.crearPerfil("Curly", ">:V", Lenguajes.ENGLISH.name(), true);
         TarjetaCredito tarjetaCredito = new TarjetaCredito("Lopesito", "123456789",
                 LocalDate.of(2024, 2, 10), "123");
+        PayPal paypal = new PayPal("capi@capi.cap", "d1b09b3f-8b45-42cf-94b9-61b65cd6b434");
         cuenta1.setMedioPago(tarjetaCredito);
+        cuenta2.setMedioPago(paypal);
+        cuenta2.actualizarAMembresiaPremium();
         cuenta1.actualizarAMembresiaStardard();
         cuenta1.comprarPelicula(peli1, Monedas.USD.name());
         cuenta1.comprarPelicula(peli2, Monedas.CLP.name());
         System.out.println(cuenta1.getPagosPeliculas());
+        System.out.println(cuenta1);
+        cuenta1.removePerfil("Perfil3Lopesito");
     }
 
     public static Pelicula crearPelicula(Catalogo CATALOGO, String titulo, ArrayList<String> elenco, double costo,
