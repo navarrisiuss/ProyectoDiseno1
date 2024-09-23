@@ -29,10 +29,15 @@ public class Catalogo {
     }
 
     public List<ContenidoMultimedia> buscarContenido(Perfil perfil, String palabraClave) {
-        return contenidoMultimedia.stream()
+        List<ContenidoMultimedia> resultados = contenidoMultimedia.stream()
                 .filter(contenido -> contenido.getTitulo().toLowerCase().contains(palabraClave.toLowerCase()))
                 .filter(contenido -> perfil.isContenidoInfantil(contenido))
                 .collect(Collectors.toList());
+
+        if (resultados.isEmpty()) {
+            System.out.println("No se encontraron coincidencias para la búsqueda: " + palabraClave);
+        }
+        return resultados;
     }
 
     @Override

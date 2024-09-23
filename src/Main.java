@@ -3,7 +3,6 @@ import ClasesAbstractas.ContenidoMultimedia;
 import Enums.Lenguajes;
 import Enums.Monedas;
 import Enums.RestriccionEdad;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -21,12 +20,16 @@ public class Main {
         System.out.println("------------------------------------------------------------------");
         System.out.println(CATALOGO);
         System.out.println("------------------------------------------------------------------------------");
-        Cuenta cuentaTest = cuentas.get(1);
-        Perfil perfilTest = cuentaTest.getPerfiles().get(0);
-        System.out.println(perfilTest.toString());
+        Cuenta cuentaTest1 = cuentas.get(1);
+        Cuenta cuentaTest2 = cuentas.get(0);
+        Perfil perfilTest1 = cuentaTest1.getPerfiles().get(0);
+        Perfil perfilTest2 = cuentaTest2.getPerfiles().get(0);
+        System.out.println(perfilTest1.toString());
         ContenidoMultimedia peliculaTest = CATALOGO.getContenidoMultimedia().get(0);
         System.out.println(peliculaTest.toString());
-        perfilTest.addListaFavoritos(peliculaTest);
+        perfilTest1.addListaFavoritos(peliculaTest);
+        System.out.println(CATALOGO.buscarContenido(perfilTest2, "Shaggy"));
+        System.out.println(CATALOGO.buscarContenido(perfilTest1, "Shaggy"));
     }
 
     public static void rellenarCuentas(Catalogo CATALOGO, ArrayList<Cuenta> cuentas) {
@@ -62,7 +65,13 @@ public class Main {
             add("Comedia");
             add("Terror");
         }}, "Jiturra!, un idiota", 2, RestriccionEdad.ADOLESCENTES.name(), LocalDate.of(2023, 12, 15), "Capitan");
-
+        Pelicula peli3 = crearPelicula(CATALOGO, "Aventuras de Peque", new ArrayList<>() {{
+            add("Peque");
+            add("Amigo");
+        }}, 90, new ArrayList<>() {{
+            add("Animación");
+            add("Aventura");
+        }}, "Una película divertida para niños", 4, RestriccionEdad.KIDS.name(), LocalDate.of(2022, 6, 1), "Director Infantil");
         cuenta1.actualizarAMembresiaStardard();
 
         cuentas.add(cuenta1);
@@ -73,7 +82,7 @@ public class Main {
         cuenta1.crearPerfil("Perfil2Lopesito", ":)", Lenguajes.SPANISH.name(), false);
         cuenta1.crearPerfil("Perfil3Lopesito", ":)", Lenguajes.SPANISH.name(), true);
         cuenta1.crearPerfil("Perfil4Lopesito", ":)", Lenguajes.SPANISH.name(), false);
-        cuenta1.crearPerfil("Perfil5Lopesito", ":)", Lenguajes.SPANISH.name(), false);
+        cuenta1.crearPerfil("Perfil5Lopesito", ":)", Lenguajes.SPANISH.name(), true);
         cuenta1.crearPerfil("Perfil6Lopesito", ":)", Lenguajes.SPANISH.name(), true);
 
         cuenta2.crearPerfil("Curly", ">:V", Lenguajes.ENGLISH.name(), true);
