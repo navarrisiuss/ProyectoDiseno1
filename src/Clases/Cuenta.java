@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import ClasesAbstractas.MedioPago;
+
 public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMembresias {
     private String nombreUsuario;
     private String password;
@@ -15,7 +17,11 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
     private Membresia membresia;
     private List<Perfil> perfiles = new ArrayList<>();
     private List<Pelicula> peliculasCompradas = new ArrayList<>();
+    private List<Pago> registroPagos = new ArrayList<>();
+    private List<MedioPago> mediosPago = new ArrayList<>();
+    private List<CompraPelicula> comprarPeliculas = new ArrayList<>();
     private final int MAX_PERFILES = 5;
+    
 
     public Cuenta(String nombreUsuario, String password, String email) {
         this.nombreUsuario = nombreUsuario;
@@ -27,6 +33,20 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
 
     public void crearPerfil(String nombre, String icono, String lenguaje, boolean isPerfilInfantil) {
         addPerfil(new Perfil(nombre, icono, lenguaje, isPerfilInfantil));
+    }
+
+    public void addMedioPago(MedioPago medioPago) {
+        this.mediosPago.add(medioPago);
+    }
+
+    public void comprarPelicula(Pelicula pelicula, String moneda) {
+        if (pelicula.isPago()) {
+            Pago pago = new Pago(moneda, this.membresia);
+            this.registroPagos.add(pago);
+            this.peliculasCompradas.add(pelicula);
+        }else {
+            System.out.println("La pelicula " + pelicula.getTitulo() + " es gratis");
+        }    
     }
 
     public List<Perfil> getPerfiles() {
@@ -85,6 +105,15 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
 
     @Override
     public void actualizarAMembresiaStardard() {
+        String nombre = NombrePlanes.STANDARD.name();
+        Plan plan = new Plan(nombre);
+        LocalDate fechaInicio = LocalDate.now();
+        LocalDate fechaSiguienteCobro = fechaInicio.plusMonths(1);
+        LocalDate fechaTermino = fechaInicio.plusMonths(1);
+        Membresia m = new Membresia(plan, fechaInicio, fechaSiguienteCobro, fechaTermino);
+        TarjetaCredito tarjetaCredito = new TarjetaCredito("Lopesito", "123456789", LocalDate.of(2024, 2, 10), "123");
+        m.setMedioPago(tarjetaCredito);
+        this.membresia = m;
 
     }
 

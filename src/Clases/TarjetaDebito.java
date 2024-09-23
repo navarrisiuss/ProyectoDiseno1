@@ -26,6 +26,6 @@ public class TarjetaDebito extends MedioPago implements EncriptadorHash {
 
     @Override
     public void cobrar() {
-
+        System.out.println("Cobrando con tarjeta de débito");
     }
 }
