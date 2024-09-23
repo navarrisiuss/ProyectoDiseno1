@@ -13,6 +13,6 @@ public class PagoTerceros extends MedioPago {
 
     @Override
     public void cobrar() {
-
+        System.out.println("Cobrando a terceros");
     }
 }

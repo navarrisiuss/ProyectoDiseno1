@@ -31,6 +31,6 @@ public class TarjetaCredito extends MedioPago implements EncriptadorHash {
 
     @Override
     public void cobrar() {
-
+        System.out.println("Cobrando con tarjeta de crédito");
     }
 }

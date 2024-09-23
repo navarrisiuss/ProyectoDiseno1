@@ -17,6 +17,6 @@ public class CodigoRegalo extends MedioPago {
 
     @Override
     public void cobrar() {
-
+        System.out.println("Cobrando con código de regalo");
     }
 }

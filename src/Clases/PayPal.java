@@ -8,6 +8,6 @@ public class PayPal extends MedioPago {
 
     @Override
     public void cobrar() {
-
+        System.out.println("Cobrando con PayPal");
     }
 }

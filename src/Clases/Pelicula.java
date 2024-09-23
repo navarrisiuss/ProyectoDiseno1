@@ -15,6 +15,11 @@ public class Pelicula extends ContenidoMultimedia {
         this.isPago = isPago;
     }
 
+    public boolean isPago() {
+        return isPago;
+    }
+
+
     @Override
     public void ver(Cuenta cuenta) {
 
@@ -34,4 +39,6 @@ public class Pelicula extends ContenidoMultimedia {
                 ", isPago=" + isPago +
                 '}'+ "\n";
     }
+
+    
 }

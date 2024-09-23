@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import ClasesAbstractas.MedioPago;
+
 public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMembresias {
     private String nombreUsuario;
     private String password;
@@ -17,7 +19,10 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
     private List<Perfil> perfiles = new ArrayList<>();
     private List<Pelicula> peliculasCompradas = new ArrayList<>();
     private List<Pago> registroPagos = new ArrayList<>();
+    private List<MedioPago> mediosPago = new ArrayList<>();
+    private List<CompraPelicula> comprarPeliculas = new ArrayList<>();
     private final int MAX_PERFILES = 5;
+    
 
     public Cuenta(String nombreUsuario, String password, String email) {
         this.nombreUsuario = nombreUsuario;
@@ -29,6 +34,20 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
 
     public void crearPerfil(String nombre, String icono, String lenguaje, boolean isPerfilInfantil) {
         addPerfil(new Perfil(nombre, icono, lenguaje, isPerfilInfantil));
+    }
+
+    public void addMedioPago(MedioPago medioPago) {
+        this.mediosPago.add(medioPago);
+    }
+
+    public void comprarPelicula(Pelicula pelicula, String moneda) {
+        if (pelicula.isPago()) {
+            Pago pago = new Pago(moneda, this.membresia);
+            this.registroPagos.add(pago);
+            this.peliculasCompradas.add(pelicula);
+        }else {
+            System.out.println("La pelicula " + pelicula.getTitulo() + " es gratis");
+        }    
     }
 
     public List<Perfil> getPerfiles() {
