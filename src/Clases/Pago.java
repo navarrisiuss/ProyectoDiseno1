@@ -15,14 +15,4 @@ public class Pago {
         this.moneda = moneda;
         this.membresia = membresia;
     }
-
-    @Override
-    public String toString() {
-        return "Pago{" +
-                "fecha=" + fecha +
-                ", monto=" + monto +
-                ", moneda='" + moneda + '\'' +
-                ", membresia=" + membresia +
-                '}';
-    }
 }

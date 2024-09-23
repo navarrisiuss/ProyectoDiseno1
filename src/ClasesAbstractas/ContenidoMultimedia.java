@@ -1,12 +1,10 @@
 package ClasesAbstractas;
 
-import Interfaces.Visualizacion;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ContenidoMultimedia implements Visualizacion {
+public abstract class ContenidoMultimedia {
     private String titulo;
     private String descripcion;
     private List<String> categorias = new ArrayList<>();

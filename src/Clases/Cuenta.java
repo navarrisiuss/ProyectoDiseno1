@@ -4,7 +4,6 @@ import Enums.NombrePlanes;
 import Interfaces.ActualizadorMembresias;
 import Interfaces.EncriptadorPassword;
 import Interfaces.InicioSesion;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +36,24 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
         else {
             System.out.println("No se pueden crear más perfiles en " + this.nombreUsuario);
         }
+    }
+
+    public void comprarPelicula(Pelicula pelicula) {
+        if (pelicula.isPago()) {
+            this.peliculasCompradas.add(pelicula);
+            System.out.println("Pelicula comprada");
+        }
+        else {
+            System.out.println("Pelicula no disponible para compra");
+        }
+    }
+
+    public String mostrarPeliculasCompradas() {
+        String peliculas = "";
+        for (Pelicula pelicula : this.peliculasCompradas) {
+            peliculas += pelicula.getTitulo() + "\n";
+        }
+        return peliculas;
     }
 
     @Override

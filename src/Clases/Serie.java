@@ -1,7 +1,6 @@
 package Clases;
 
 import ClasesAbstractas.ContenidoMultimedia;
-
 import java.util.List;
 
 public class Serie extends ContenidoMultimedia {
@@ -9,11 +8,6 @@ public class Serie extends ContenidoMultimedia {
 
     public Serie(List<Temporada> temporadas) {
         this.temporadas = temporadas;
-    }
-
-    @Override
-    public void ver(Cuenta cuenta) {
-
     }
 
     @Override

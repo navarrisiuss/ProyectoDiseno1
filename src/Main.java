@@ -58,17 +58,17 @@ public class Main {
         Cuenta cuenta2 = new Cuenta("Curl", "curlito123", "curlito@curl.curl");
         Cuenta cuenta3 = new Cuenta("nico3798", "nicolas", "nico@3798.nico");
         Cuenta cuenta4 = new Cuenta("Nav", "nav213", "nav@nav.nav");
-
         cuentas.add(cuenta1);
         cuentas.add(cuenta2);
         cuentas.add(cuenta3);
         cuentas.add(cuenta4);
         cuenta1.crearPerfil("Perfil1Lopesito", ":)", Lenguajes.SPANISH.name(), false);
         cuenta1.crearPerfil("Perfil2Lopesito", ":)", Lenguajes.SPANISH.name(), false);
-        cuenta1.crearPerfil("Perfil3Lopesito", ":)", Lenguajes.SPANISH.name(), true);
+        cuenta1.crearPerfil("Perfil3Lopesito", ":)", Lenguajes.SPANISH.name(), false);
         cuenta1.crearPerfil("Perfil4Lopesito", ":)", Lenguajes.SPANISH.name(), false);
         cuenta1.crearPerfil("Perfil5Lopesito", ":)", Lenguajes.SPANISH.name(), false);
-        cuenta1.crearPerfil("Perfil6Lopesito", ":)", Lenguajes.SPANISH.name(), true);
+        cuenta1.crearPerfil("Perfil6Lopesito", ":)", Lenguajes.SPANISH.name(), false);
+        cuenta1.crearPerfil("Perfil7Lopesito", ":)", Lenguajes.SPANISH.name(), false);
     }
 
     public static Pelicula crearPelicula(String titulo, ArrayList<String> elenco, boolean isPago, ArrayList<String> categorias, String descripcion, int estrellas, String restriccionEdad, LocalDate fechaLanzamiento, String director) {

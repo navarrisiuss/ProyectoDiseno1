@@ -4,12 +4,10 @@ import ClasesAbstractas.ContenidoMultimedia;
 import ClasesAbstractas.RegistroReproduccion;
 import Enums.RestriccionEdad;
 import Interfaces.Busqueda;
-import Interfaces.Visualizacion;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class Perfil implements Busqueda, Visualizacion {
+public class Perfil implements Busqueda {
     private String nombre;
     private String icono;
     private String lenguaje;
@@ -153,11 +151,6 @@ public class Perfil implements Busqueda, Visualizacion {
                 }
             }
         }
-    }
-
-    @Override
-    public void ver(Cuenta cuenta) {
-
     }
 
     @Override

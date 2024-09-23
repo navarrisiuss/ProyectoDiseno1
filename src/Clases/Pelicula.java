@@ -1,7 +1,6 @@
 package Clases;
 
 import ClasesAbstractas.ContenidoMultimedia;
-
 import java.util.List;
 
 public class Pelicula extends ContenidoMultimedia {
@@ -15,9 +14,8 @@ public class Pelicula extends ContenidoMultimedia {
         this.isPago = isPago;
     }
 
-    @Override
-    public void ver(Cuenta cuenta) {
-
+    public boolean isPago() {
+        return isPago;
     }
 
     @Override
