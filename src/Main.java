@@ -67,6 +67,9 @@ public class Main {
         Cuenta cuenta3 = new Cuenta("nico3798", "nicolas", "nico@3798.nico");
         Cuenta cuenta4 = new Cuenta("Nav", "nav213", "nav@nav.nav");
 
+
+        cuenta1.actualizarAMembresiaStardard();
+
         cuentas.add(cuenta1);
         cuentas.add(cuenta2);
         cuentas.add(cuenta3);
