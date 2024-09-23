@@ -1,0 +1,216 @@
+abstract RegistroReproduccion{
+}
+
+enum Lenguajes{
+SPANISH
+ENGLISH
+}
+
+Lenguajes <--- Perfil
+
+enum Monedas{
+USD
+CLP
+}
+
+Monedas <--- MedioPago
+
+enum NombrePlanes{
+GRATIS
+STANDARD
+PREMIUM
+}
+
+
+NombrePlanes <--- Plan
+
+enum RestriccionEdad{
+TODO_PUBLICO
+KIDS
+ADOLECENTES
+ADULTOS
+}
+
+RestriccionEdad <--- ContenidoMultimedia
+
+interface EncriptadorPassword{
++encriptarPassword(): string
+}
+
+EncriptadorPassword --- Cuenta 
+
+interface ActualizardorMembresias{
++actualizarAGratis(): Membresia
++actualizarAStardard(): Membresia
++actualizarAPremium(): Membresia
+}
+
+ActualizardorMembresias --- Cuenta
+
+interface EncriptadorHash{
++encriptarNumTarjeta(): String
++encriptarCodigo(): String
+}
+
+EncriptadorHash --- TarjetaDebito
+EncriptadorHash --- TarjetaCredito
+
+
+
+class Cuenta{
+-nombreUsuario: String
+-correo: String
+-password: String
++iniciarSecion(): void
+}
+
+Cuenta "1"---"1" Membresia 
+
+class Membresia {
+-fechaInicio: Date
+-FechaSuiguimientoCobros: Date
+-FechaTermino: Date
+}
+
+Cuenta "1"---"0..*" CompraPelicula
+
+class CompraPelicula{
+-fechaCompra: Date
+-precio: Double
+-moneda: String
+}
+
+class Perfil{
+-nombre: String
+-icono: String
+-lenguaje: String
+-esPerfilDeNinos: Boolean
++verFavoritos():void
++eliminar():void
+}
+
+Cuenta "1"---"o..5" Perfil
+
+class Plan{
+-nombre: String
+-descripcion: String
+-costo: Double
+-pantallasActivas: int
+}
+
+Membresia "1"---"1" Plan
+Membresia "1"---"1" MedioPago
+
+abstract MedioPago
+
+class CodigoRegalo{
+-codigo: String
+-descripcion: String
+-fechaExpiracion: Date
+}
+
+class PagoTerceros{
+refCliente: String
+refProveedor: String
+}
+
+Class TarjetaCredito{
+nombreTitular: String
+numeroTarjeta: String
+fechaExpiracion: Date
+codigoVerificador: String
+}
+
+Class TarjetaDebito{
+-numeroTarjeta: String
+-rutTitular: String
+-rutBanco: String
+}
+
+class Paypal{
+-correo: String
+-tokenVeridficacion: String
+}
+
+MedioPago <|-- Paypal
+MedioPago <|-- CodigoRegalo
+MedioPago <|-- PagoTerceros
+MedioPago <|-- TarjetaDebito
+MedioPago <|-- TarjetaCredito
+
+Perfil "1"---"o..*" ListaPersonalizada
+
+Perfil "1"---"o..*" RegistroReproduccion
+
+RegistroReproduccion "1"---"o..*" RegistroReproduccionSerie
+
+RegistroReproduccion "1"---"o..*" RegistroReproduccionPelicula
+
+Perfil "1"---"o..*" Favorito
+
+class ListaPersonalizada{
+-nombre: String
+-enlacePublico: String
+}
+
+class RegistroReproduccionPelicula{
+-peliculaVista: Pelicula 
+-feachaUltimaVista: LocalDate
+-horaUltimaVista: Localtime
+}
+
+class RegistroReproduccionSerie{
+-serieVista: Serie
+-episodiosVistos: List<Episodio>
+-fechasUltimaVista: List<LocalDate>
+-horasUltimaVista: List<LocalTime>
+-ultimoEpisodioVisto: Episodio 
+}
+
+class Favorito{
+}
+
+abstract ContenidoMultimedia{
+-titulo: String
+-descripcion: String
+-categorias: String
+-fechaLanzamientio: Date
+-restriccionEda: String
++elimiar():void
+}
+
+RegistroReproduccionPelicula "1"---"1" Pelicula
+
+ContenidoMultimedia <|--- Pelicula
+ContenidoMultimedia <|--- Serie
+
+ListaPersonalizada "1"---"0..*" ContenidoMultimedia
+
+class Pelicula{
+-director: String
+-elenco: String
+-duracion: int
+}
+
+class Temporada{
+-numeroTemporada: int
+-fechaLanzamiento: Date
+}
+
+Serie "1"---"1..*" Temporada
+
+class Serie{
+-temporadas: List<Temporada>
+}
+
+
+Temporada "1"---"1..*" Episodio
+RegistroReproduccionSerie "1"---"0..*" Episodio
+
+class Episodio{
+-numeroEpisodio: int
+-nombre: String
+-director: String
+-elenco: String
+-duracion: int
+}
