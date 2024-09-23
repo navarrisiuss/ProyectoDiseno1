@@ -22,10 +22,15 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
         this.password = password;
         this.email = email;
         actualizarAMembresiaGratis();
+        this.password = encriptarPassword(password);
     }
 
     public void crearPerfil(String nombre, String icono, String lenguaje, boolean isPerfilInfantil) {
         addPerfil(new Perfil(nombre, icono, lenguaje, isPerfilInfantil));
+    }
+
+    public List<Perfil> getPerfiles() {
+        return perfiles;
     }
 
     private void addPerfil(Perfil perfil) {
@@ -57,8 +62,17 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
     }
 
     @Override
-    public String encriptarPassword() {
-        return null;
+    public String encriptarPassword(String password) {
+        StringBuilder resultado = new StringBuilder();
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            if (Character.isLetter(c)) {
+                char base = Character.isUpperCase(c) ? 'A' : 'a';
+                c = (char) ((c - base + 10) % 26 + base);
+            }
+            resultado.append(c);
+        }
+        return resultado.toString();
     }
 
     @Override
@@ -81,7 +95,8 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
 
     @Override
     public boolean inicioSesionValido(String email, String password) {
-        return this.email.equals(email) && this.password.equals(password);
+        password = encriptarPassword(password);
+        return this.email.equals(email) && password.equals(this.password);
     }
 
     @Override

@@ -1,3 +1,4 @@
+@startuml DiagramaClase
 abstract RegistroReproduccion{
 }
 
@@ -6,14 +7,13 @@ SPANISH
 ENGLISH
 }
 
-Lenguajes <--- Perfil
+
 
 enum Monedas{
 USD
 CLP
 }
 
-Monedas <--- MedioPago
 
 enum NombrePlanes{
 GRATIS
@@ -22,7 +22,6 @@ PREMIUM
 }
 
 
-NombrePlanes <--- Plan
 
 enum RestriccionEdad{
 TODO_PUBLICO
@@ -31,40 +30,67 @@ ADOLECENTES
 ADULTOS
 }
 
-RestriccionEdad <--- ContenidoMultimedia
 
 interface EncriptadorPassword{
 +encriptarPassword(): string
 }
 
-EncriptadorPassword --- Cuenta 
 
-interface ActualizardorMembresias{
+interface ActualizadorMembresias{
 +actualizarAGratis(): Membresia
 +actualizarAStardard(): Membresia
 +actualizarAPremium(): Membresia
 }
 
-ActualizardorMembresias --- Cuenta
 
 interface EncriptadorHash{
 +encriptarNumTarjeta(): String
 +encriptarCodigo(): String
 }
 
-EncriptadorHash --- TarjetaDebito
-EncriptadorHash --- TarjetaCredito
+
+interface Busqueda{
++buscarContenido(Catalogo catalogo,String nombre):void
+}
+
+interface Cobrar{
++cobrar():void
+}
+
+interface InicioSesion{
++inicioSesionValido(String email, String password):void
+}
+
+interface GenerarEnlacePublico{
++generarEnlacePublico():void
+}
+
+interface Visualizacion{
++ver(Cuenta cuenta):void    
+}
 
 
+class Pago{
+-fecha: Date
+-monto:double
+-moneda: String
+-membresia: Membresia
+}
 
-class Cuenta{
+class Catalogo extends ContenidoMultimedia{
+-contenidoMultimedia:List<ContenidoMultimedia>
++addContenidoMultimedia(ContenidoMultimedia contenidoMultimedia):void
++deleteContenidoMultimedia(ContenidoMultimedia contenidoMultimedia):void
+}
+
+class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMembresias{
 -nombreUsuario: String
 -correo: String
 -password: String
 +iniciarSecion(): void
 }
 
-Cuenta "1"---"1" Membresia 
+
 
 class Membresia {
 -fechaInicio: Date
@@ -72,7 +98,6 @@ class Membresia {
 -FechaTermino: Date
 }
 
-Cuenta "1"---"0..*" CompraPelicula
 
 class CompraPelicula{
 -fechaCompra: Date
@@ -80,94 +105,79 @@ class CompraPelicula{
 -moneda: String
 }
 
-class Perfil{
+class Perfil implements Busqueda, Visualizacion{
 -nombre: String
 -icono: String
 -lenguaje: String
 -esPerfilDeNinos: Boolean
-+verFavoritos():void
+-listaFavoritos:List<ContenidoMultimedia>
+-listaPersonalizada: List<ListaPersonalizada>
+-registroContenidoVisto: List<RegistroReproduccion>
+-isContenidoInfantil(ContenidoMultimedia contenidoMultimedia): boolean
++buscarContenido(Catalogo catalogo,String nombre):void
++addListaFavoritos(ContenidoMultimedia contenidoMultimedia):void
++crearListaPersonalizada(String nombre):void
++agregarAListaPersonalizada(String nombre, ContenidoMultimedia contenidoMultimedia):void
 +eliminar():void
 }
-
-Cuenta "1"---"o..5" Perfil
 
 class Plan{
 -nombre: String
 -descripcion: String
 -costo: Double
 -pantallasActivas: int
+-rellenarInfoPlan():void
 }
 
-Membresia "1"---"1" Plan
-Membresia "1"---"1" MedioPago
+abstract MedioPago implements Cobrar{
+}
 
-abstract MedioPago
-
-class CodigoRegalo{
+class CodigoRegalo extends MedioPago{
 -codigo: String
 -descripcion: String
 -fechaExpiracion: Date
 }
 
-class PagoTerceros{
+class PagoTerceros extends MedioPago{
 refCliente: String
 refProveedor: String
 }
 
-Class TarjetaCredito{
+Class TarjetaCredito extends MedioPago implements EncriptadorHash{
 nombreTitular: String
 numeroTarjeta: String
 fechaExpiracion: Date
 codigoVerificador: String
 }
 
-Class TarjetaDebito{
+Class TarjetaDebito extends MedioPago implements EncriptadorHash{
 -numeroTarjeta: String
 -rutTitular: String
 -rutBanco: String
 }
 
-class Paypal{
+class Paypal extends MedioPago{
 -correo: String
 -tokenVeridficacion: String
 }
 
-MedioPago <|-- Paypal
-MedioPago <|-- CodigoRegalo
-MedioPago <|-- PagoTerceros
-MedioPago <|-- TarjetaDebito
-MedioPago <|-- TarjetaCredito
-
-Perfil "1"---"o..*" ListaPersonalizada
-
-Perfil "1"---"o..*" RegistroReproduccion
-
-RegistroReproduccion "1"---"o..*" RegistroReproduccionSerie
-
-RegistroReproduccion "1"---"o..*" RegistroReproduccionPelicula
-
-Perfil "1"---"o..*" Favorito
-
-class ListaPersonalizada{
+class ListaPersonalizada implements GenerarEnlacePublico{
 -nombre: String
 -enlacePublico: String
 }
 
-class RegistroReproduccionPelicula{
+class RegistroReproduccionPelicula extends RegistroReproduccion{
 -peliculaVista: Pelicula 
 -feachaUltimaVista: LocalDate
 -horaUltimaVista: Localtime
 }
 
-class RegistroReproduccionSerie{
+class RegistroReproduccionSerie extends RegistroReproduccion{
 -serieVista: Serie
 -episodiosVistos: List<Episodio>
 -fechasUltimaVista: List<LocalDate>
 -horasUltimaVista: List<LocalTime>
 -ultimoEpisodioVisto: Episodio 
-}
-
-class Favorito{
 }
 
 abstract ContenidoMultimedia{
@@ -179,33 +189,21 @@ abstract ContenidoMultimedia{
 +elimiar():void
 }
 
-RegistroReproduccionPelicula "1"---"1" Pelicula
-
-ContenidoMultimedia <|--- Pelicula
-ContenidoMultimedia <|--- Serie
-
-ListaPersonalizada "1"---"0..*" ContenidoMultimedia
-
-class Pelicula{
+class Pelicula extends ContenidoMultimedia{
 -director: String
 -elenco: String
--duracion: int
+-isPago:boolean
 }
 
 class Temporada{
 -numeroTemporada: int
 -fechaLanzamiento: Date
+-episodios: List<Episodio>
 }
 
-Serie "1"---"1..*" Temporada
-
-class Serie{
+class Serie extends ContenidoMultimedia{
 -temporadas: List<Temporada>
 }
-
-
-Temporada "1"---"1..*" Episodio
-RegistroReproduccionSerie "1"---"0..*" Episodio
 
 class Episodio{
 -numeroEpisodio: int
@@ -213,4 +211,25 @@ class Episodio{
 -director: String
 -elenco: String
 -duracion: int
+-fechaLanzamiento:Date
 }
+Cuenta -- NombrePlanes
+Lenguajes <--- Perfil
+Monedas <--- MedioPago
+NombrePlanes <--- Plan
+RestriccionEdad <--- ContenidoMultimedia
+Visualizacion -- Cuenta
+Cuenta "1"---"0..*" CompraPelicula
+Pago -- Membresia
+Cuenta "1"---"o..5" Perfil
+Membresia "1"---"1" Plan
+Membresia "1"---"1" MedioPago
+Perfil "1"---"o..*" RegistroReproduccion
+Perfil "1"---"o..*" ListaPersonalizada
+Temporada "1"---"1..*" Episodio
+RegistroReproduccionPelicula "1"---"1" Pelicula
+RegistroReproduccionSerie "1"---"0..*" Episodio
+ListaPersonalizada "1"---"0..*" ContenidoMultimedia
+Serie "1"---"1..*" Temporada
+Cuenta "1"---"1" Membresia 
+@enduml

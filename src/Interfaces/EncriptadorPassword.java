@@ -1,5 +1,5 @@
 package Interfaces;
 
 public interface EncriptadorPassword {
-    public String encriptarPassword();
+    public String encriptarPassword(String password);
 }

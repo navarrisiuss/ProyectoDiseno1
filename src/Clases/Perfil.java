@@ -93,6 +93,7 @@ public class Perfil implements Busqueda {
     public void addListaFavoritos(ContenidoMultimedia contenidoMultimedia) {
         if (isContenidoInfantil(contenidoMultimedia)) {
             this.listaFavoritos.add(contenidoMultimedia);
+            System.out.println("Contenido Agregado");
         } else {
             System.out.println("No se puede agregar, ya que el perfil es infantil");
         }
