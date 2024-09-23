@@ -18,9 +18,9 @@ public class PagoTerceros extends MedioPago {
 
     @Override
     public String toString() {
-        return "PagoTerceros{" +
-                "refCliente='" + refCliente + '\'' +
-                ", refProveedor='" + refProveedor + '\'' +
+        return "PagoTerceros{\n" +
+                "    refCliente='" + refCliente + "',\n" +
+                "    refProveedor='" + refProveedor + "'\n" +
                 '}';
     }
 }

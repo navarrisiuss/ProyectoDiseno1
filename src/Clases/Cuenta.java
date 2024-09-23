@@ -156,16 +156,16 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
 
     @Override
     public String toString() {
-        return "Cuenta{" +
-                "nombreUsuario='" + nombreUsuario + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", membresia=" + membresia +
-                ", perfiles=" + perfiles +
-                ", peliculasCompradas=" + peliculasCompradas +
-                ", registroPagos=" + registroPagos +
-                ", medioPago=" + medioPago +
-                ", pagosPeliculas=" + pagosPeliculas +
-                '}';
+        return "Cuenta{\n" +
+            "    nombreUsuario='" + nombreUsuario + "',\n" +
+            "    password='" + password + "',\n" +
+            "    email='" + email + "',\n" +
+            "    membresia=" + membresia + ",\n" +
+            "    perfiles=" + perfiles + ",\n" +
+            "    peliculasCompradas=" + peliculasCompradas + ",\n" +
+            "    registroPagos=" + registroPagos + ",\n" +
+            "    medioPago=" + medioPago + ",\n" +
+            "    pagosPeliculas=" + pagosPeliculas + "\n" +
+            '}';
     }
 }

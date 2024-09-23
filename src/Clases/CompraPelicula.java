@@ -72,12 +72,12 @@ public class CompraPelicula implements ConvertidorMonedas {
 
     @Override
     public String toString() {
-        return "CompraPelicula{" +
-                "pelicula=" + pelicula +
-                ", fechaCompra=" + fechaCompra +
-                ", precio=" + precio +
-                ", moneda='" + moneda + '\'' +
-                ", medioPago=" + medioPago +
+        return "CompraPelicula{\n" +
+                "    pelicula=" + pelicula + ",\n" +
+                "    fechaCompra=" + fechaCompra + ",\n" +
+                "    precio=" + precio + ",\n" +
+                "    moneda='" + moneda + "',\n" +
+                "    medioPago=" + medioPago + "\n" +
                 '}';
     }
 }

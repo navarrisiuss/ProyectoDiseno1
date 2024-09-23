@@ -22,12 +22,13 @@ public class Episodio {
 
     @Override
     public String toString() {
-        return "Episodio{" +
-                "nombre='" + nombre + '\'' +
-                ", director='" + director + '\'' +
-                ", elenco=" + elenco +
-                ", fechaLanzamiento=" + fechaLanzamiento +
-                ", duracion=" + duracion +
-                '}';
+        return "Episodio{\n" +
+            "    numEpisodio=" + numEpisodio + ",\n" +
+            "    nombre='" + nombre + "',\n" +
+            "    director='" + director + "',\n" +
+            "    elenco=" + elenco + ",\n" +
+            "    fechaLanzamiento=" + fechaLanzamiento + ",\n" +
+            "    duracion=" + duracion + "\n" +
+            '}';
     }
 }

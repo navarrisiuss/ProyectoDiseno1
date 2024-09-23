@@ -29,14 +29,14 @@ public class Serie extends ContenidoMultimedia {
 
     @Override
     public String toString() {
-        return "Serie{" +
-                "titulo='" + this.getTitulo() + "\'" +
-                ", descripcion='" + this.getDescripcion() + "\'" +
-                ", categorias=" + this.getCategorias() +
-                ", fechaLanzamiento=" + this.getFechaLanzamiento() +
-                ", restriccionEdad='" + this.getRestriccionEdad() + "\'" + '\n' +
-                "estrellas=" + this.getEstrellas() +
-                "temporadas=" + temporadas +
-                '}';
+        return "Serie{\n" +
+            "    titulo='" + this.getTitulo() + "',\n" +
+            "    descripcion='" + this.getDescripcion() + "',\n" +
+            "    categorias=" + this.getCategorias() + ",\n" +
+            "    fechaLanzamiento=" + this.getFechaLanzamiento() + ",\n" +
+            "    restriccionEdad='" + this.getRestriccionEdad() + "',\n" +
+            "    estrellas=" + this.getEstrellas() + ",\n" +
+            "    temporadas=" + temporadas + "\n" +
+            '}';
     }
 }

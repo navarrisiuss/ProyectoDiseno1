@@ -60,12 +60,12 @@ public class Membresia {
 
     @Override
     public String toString() {
-        return "Membresia{" +
-                "plan=" + plan +
-                ", fechaInicio=" + fechaInicio +
-                ", fechaSiguienteCobro=" + fechaSiguienteCobro +
-                ", fechaTermino=" + fechaTermino +
-                ", medioPago=" + medioPago +
-                '}';
+        return "Membresia{\n" +
+            "    plan=" + plan + ",\n" +
+            "    fechaInicio=" + fechaInicio + ",\n" +
+            "    fechaSiguienteCobro=" + fechaSiguienteCobro + ",\n" +
+            "    fechaTermino=" + fechaTermino + ",\n" +
+            "    medioPago=" + medioPago + "\n" +
+            '}';
     }
 }

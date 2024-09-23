@@ -42,11 +42,11 @@ public class TarjetaCredito extends MedioPago implements EncriptadorHash {
 
     @Override
     public String toString() {
-        return "TarjetaCredito{" +
-                "nombreTitular='" + nombreTitular + '\'' +
-                ", numTarjeta='" + numTarjeta + '\'' +
-                ", fechaExpiracion=" + fechaExpiracion +
-                ", codigoVerificacion='" + codigoVerificacion + '\'' +
-                '}';
+        return "TarjetaCredito{\n" +
+            "    nombreTitular='" + nombreTitular + "',\n" +
+            "    numTarjeta='" + numTarjeta + "',\n" +
+            "    fechaExpiracion=" + fechaExpiracion + ",\n" +
+            "    codigoVerificacion='" + codigoVerificacion + "'\n" +
+            '}';
     }
 }

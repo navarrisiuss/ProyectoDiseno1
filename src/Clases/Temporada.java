@@ -47,10 +47,10 @@ public class Temporada {
 
     @Override
     public String toString() {
-        return "Temporada{" +
-                "numero=" + numero +
-                ", fechaLanzamiento=" + fechaLanzamiento +
-                ", episodios=" + episodios +
-                '}';
+        return "Temporada{\n" +
+            "    numero=" + numero + ",\n" +
+            "    fechaLanzamiento=" + fechaLanzamiento + ",\n" +
+            "    episodios=" + episodios + "\n" +
+            '}';
     }
 }

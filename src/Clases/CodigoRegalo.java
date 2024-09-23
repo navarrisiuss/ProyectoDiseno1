@@ -22,10 +22,10 @@ public class CodigoRegalo extends MedioPago {
 
     @Override
     public String toString() {
-        return "CodigoRegalo{" +
-                "codigo='" + codigo + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", fechaExpiracion=" + fechaExpiracion +
+        return "CodigoRegalo{\n" +
+                "    codigo='" + codigo + "',\n" +
+                "    descripcion='" + descripcion + "',\n" +
+                "    fechaExpiracion=" + fechaExpiracion + "\n" +
                 '}';
     }
 }

@@ -67,10 +67,10 @@ public class ListaPersonalizada implements GenerarEnlacePublico {
 
     @Override
     public String toString() {
-        return "ListaPersonalizada{" +
-                "nombre='" + nombre + '\'' +
-                ", listaContenidoMultimedia=" + listaContenidoMultimedia +
-                ", enlacePublico='" + enlacePublico + '\'' +
-                '}';
+        return "ListaPersonalizada{\n" +
+            "    nombre='" + nombre + "',\n" +
+            "    listaContenidoMultimedia=" + listaContenidoMultimedia + ",\n" +
+            "    enlacePublico='" + enlacePublico + "'\n" +
+            '}';
     }
 }

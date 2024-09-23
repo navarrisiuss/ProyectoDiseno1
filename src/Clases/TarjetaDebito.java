@@ -37,10 +37,10 @@ public class TarjetaDebito extends MedioPago implements EncriptadorHash {
 
     @Override
     public String toString() {
-        return "TarjetaDebito{" +
-                "numTarjeta='" + numTarjeta + '\'' +
-                ", rutTitular='" + rutTitular + '\'' +
-                ", rutBanco='" + rutBanco + '\'' +
-                '}';
+        return "TarjetaDebito{\n" +
+            "    numTarjeta='" + numTarjeta + "',\n" +
+            "    rutTitular='" + rutTitular + "',\n" +
+            "    rutBanco='" + rutBanco + "'\n" +
+            '}';
     }
 }

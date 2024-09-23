@@ -32,11 +32,11 @@ public class Pago implements ConvertidorMonedas {
 
     @Override
     public String toString() {
-        return "Pago{" +
-                "fecha=" + fecha +
-                ", monto=" + monto +
-                ", moneda='" + moneda + '\'' +
-                ", membresia=" + membresia +
-                '}';
+        return "Pago{\n" +
+            "    fecha=" + fecha + ",\n" +
+            "    monto=" + monto + ",\n" +
+            "    moneda='" + moneda + "',\n" +
+            "    membresia=" + membresia + "\n" +
+            '}';
     }
 }

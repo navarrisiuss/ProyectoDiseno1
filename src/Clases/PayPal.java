@@ -18,9 +18,9 @@ public class PayPal extends MedioPago {
 
     @Override
     public String toString() {
-        return "PayPal{" +
-                "email='" + email + '\'' +
-                ", token='" + token + '\'' +
+        return "PayPal{\n" +
+                "    email='" + email + "',\n" +
+                "    token='" + token + "'\n" +
                 '}';
     }
 }

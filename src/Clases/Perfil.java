@@ -182,14 +182,14 @@ public class Perfil implements Busqueda {
 
     @Override
     public String toString() {
-        return "Perfil{" +
-                "nombre='" + nombre + '\'' +
-                ", icono='" + icono + '\'' +
-                ", lenguaje='" + lenguaje + '\'' +
-                ", isPerfilInfantil=" + isPerfilInfantil +
-                ", listaFavoritos=" + listaFavoritos +
-                ", listasPersonalizadas=" + listasPersonalizadas +
-                ", registroContenidoVisto=" + registroContenidoVisto +
-                '}';
+        return "Perfil{\n" +
+            "    nombre='" + nombre + "',\n" +
+            "    icono='" + icono + "',\n" +
+            "    lenguaje='" + lenguaje + "',\n" +
+            "    isPerfilInfantil=" + isPerfilInfantil + ",\n" +
+            "    listaFavoritos=" + listaFavoritos + ",\n" +
+            "    listasPersonalizadas=" + listasPersonalizadas + ",\n" +
+            "    registroContenidoVisto=" + registroContenidoVisto + "\n" +
+            '}';
     }
 }

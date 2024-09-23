@@ -50,8 +50,8 @@ public class Catalogo {
 
     @Override
     public String toString() {
-        return "Catalogo{" +
-                "contenidoMultimedia=" + contenidoMultimedia +
-                '}';
+    return "Catalogo{\n" +
+            "    contenidoMultimedia=" + contenidoMultimedia + "\n" +
+            '}';
     }
 }

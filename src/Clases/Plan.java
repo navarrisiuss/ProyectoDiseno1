@@ -71,11 +71,11 @@ public class Plan {
 
     @Override
     public String toString() {
-        return "Plan{" +
-                "nombre='" + nombre + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", costo=" + costo +
-                ", pantallasActivas=" + pantallasActivas +
-                '}';
+        return "Plan{\n" +
+            "    nombre='" + nombre + "',\n" +
+            "    descripcion='" + descripcion + "',\n" +
+            "    costo=" + costo + ",\n" +
+            "    pantallasActivas=" + pantallasActivas + "\n" +
+            '}';
     }
 }

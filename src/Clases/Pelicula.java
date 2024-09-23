@@ -36,17 +36,17 @@ public class Pelicula extends ContenidoMultimedia {
 
     @Override
     public String toString() {
-        return "Pelicula{" +
-                "titulo='" + this.getTitulo() + "\'" +
-                ", descripcion='" + this.getDescripcion() + "\'" +
-                ", categorias=" + this.getCategorias() +
-                ", fechaLanzamiento=" + this.getFechaLanzamiento() +
-                ", restriccionEdad='" + this.getRestriccionEdad() + "\'" + '\n' +
-                "estrellas=" + this.getEstrellas() +
-                ", director='" + director + "\'" +
-                ", elenco=" + elenco +
-                ", isPago=" + isPago +
-                '}'+ "\n";
+        return "Pelicula{\n" +
+            "    titulo='" + this.getTitulo() + "',\n" +
+            "    descripcion='" + this.getDescripcion() + "',\n" +
+            "    categorias=" + this.getCategorias() + ",\n" +
+            "    fechaLanzamiento=" + this.getFechaLanzamiento() + ",\n" +
+            "    restriccionEdad='" + this.getRestriccionEdad() + "',\n" +
+            "    estrellas=" + this.getEstrellas() + ",\n" +
+            "    director='" + director + "',\n" +
+            "    elenco=" + elenco + ",\n" +
+            "    isPago=" + isPago + "\n" +
+            '}';
     }
 
     
