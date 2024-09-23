@@ -23,7 +23,7 @@ public class Perfil implements Busqueda {
         this.isPerfilInfantil = isPerfilInfantil;
     }
 
-    private boolean isContenidoInfantil(ContenidoMultimedia contenidoMultimedia) {
+    public boolean isContenidoInfantil(ContenidoMultimedia contenidoMultimedia) {
         if (this.isPerfilInfantil) {
             String restriccionContenido = contenidoMultimedia.getRestriccionEdad();
             String restriccionAdolescentes = RestriccionEdad.ADOLESCENTES.name();

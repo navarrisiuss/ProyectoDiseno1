@@ -1,9 +1,9 @@
 package Clases;
 
 import ClasesAbstractas.ContenidoMultimedia;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Catalogo {
     private List<ContenidoMultimedia> contenidoMultimedia = new ArrayList<>();
@@ -26,6 +26,13 @@ public class Catalogo {
                 this.contenidoMultimedia.remove(multimedia);
             }
         }
+    }
+
+    public List<ContenidoMultimedia> buscarContenido(Perfil perfil, String palabraClave) {
+        return contenidoMultimedia.stream()
+                .filter(contenido -> contenido.getTitulo().toLowerCase().contains(palabraClave.toLowerCase()))
+                .filter(contenido -> perfil.isContenidoInfantil(contenido))
+                .collect(Collectors.toList());
     }
 
     @Override
