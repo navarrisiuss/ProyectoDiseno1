@@ -1,5 +1,6 @@
 package Clases;
 
+import ClasesAbstractas.MedioPago;
 import Enums.NombrePlanes;
 import Interfaces.ActualizadorMembresias;
 import Interfaces.EncriptadorPassword;
@@ -9,8 +10,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import ClasesAbstractas.MedioPago;
-
 public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMembresias {
     private String nombreUsuario;
     private String password;
@@ -19,10 +18,10 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
     private List<Perfil> perfiles = new ArrayList<>();
     private List<Pelicula> peliculasCompradas = new ArrayList<>();
     private List<Pago> registroPagos = new ArrayList<>();
-    private List<MedioPago> mediosPago = new ArrayList<>();
-    private List<CompraPelicula> comprarPeliculas = new ArrayList<>();
+    private MedioPago medioPago;
+    private final List<CompraPelicula> pagosPeliculas = new ArrayList<>();
     private final int MAX_PERFILES = 5;
-    
+
 
     public Cuenta(String nombreUsuario, String password, String email) {
         this.nombreUsuario = nombreUsuario;
@@ -32,22 +31,36 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
         this.password = encriptarPassword(password);
     }
 
+    public void setMedioPago(MedioPago medioPago) {
+        this.medioPago = medioPago;
+    }
+
+    public MedioPago getMedioPago() {
+        return medioPago;
+    }
+
+    public List<CompraPelicula> getPagosPeliculas() {
+        return pagosPeliculas;
+    }
+
     public void crearPerfil(String nombre, String icono, String lenguaje, boolean isPerfilInfantil) {
         addPerfil(new Perfil(nombre, icono, lenguaje, isPerfilInfantil));
     }
 
-    public void addMedioPago(MedioPago medioPago) {
-        this.mediosPago.add(medioPago);
-    }
-
     public void comprarPelicula(Pelicula pelicula, String moneda) {
         if (pelicula.isPago()) {
-            Pago pago = new Pago(moneda, this.membresia);
-            this.registroPagos.add(pago);
-            this.peliculasCompradas.add(pelicula);
-        }else {
+            if (this.medioPago == null) {
+                System.out.println("Agregue un medio de pago");
+            } else {
+                CompraPelicula compraPelicula = new CompraPelicula(pelicula, LocalDate.now(), pelicula.getCosto(), moneda, this.medioPago);
+                this.pagosPeliculas.add(compraPelicula);
+                this.peliculasCompradas.add(pelicula);
+                System.out.println("Se compró " + pelicula.getTitulo() + " por " + compraPelicula.getPrecio() + " " + moneda);
+                this.medioPago.cobrar();
+            }
+        } else {
             System.out.println("La pelicula " + pelicula.getTitulo() + " es gratis");
-        }    
+        }
     }
 
     public List<Perfil> getPerfiles() {
@@ -58,8 +71,7 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
         if (this.perfiles.size() < this.MAX_PERFILES) {
             this.perfiles.add(perfil);
             System.out.println("Perfil " + perfil.getNombre() + " creado a la cuenta " + this.nombreUsuario);
-        }
-        else {
+        } else {
             System.out.println("No se pueden crear más perfiles en " + this.nombreUsuario);
         }
     }
@@ -82,27 +94,43 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
     public void actualizarAMembresiaGratis() {
         String nombre = NombrePlanes.GRATIS.name();
         Plan plan = new Plan(nombre);
-        Membresia m = new Membresia(plan, LocalDate.now(), null, null);
-        this.membresia = m;
+        this.membresia = new Membresia(plan, LocalDate.now(), null, null);
     }
 
     @Override
     public void actualizarAMembresiaStardard() {
-        String nombre = NombrePlanes.STANDARD.name();
-        Plan plan = new Plan(nombre);
-        LocalDate fechaInicio = LocalDate.now();
-        LocalDate fechaSiguienteCobro = fechaInicio.plusMonths(1);
-        LocalDate fechaTermino = fechaInicio.plusMonths(1);
-        Membresia m = new Membresia(plan, fechaInicio, fechaSiguienteCobro, fechaTermino);
-        TarjetaCredito tarjetaCredito = new TarjetaCredito("Lopesito", "123456789", LocalDate.of(2024, 2, 10), "123");
-        m.setMedioPago(tarjetaCredito);
-        this.membresia = m;
-
+        if (this.medioPago == null) {
+            System.out.println("Agregue un medio de pago");
+        }
+        else {
+            String nombre = NombrePlanes.STANDARD.name();
+            Plan plan = new Plan(nombre);
+            LocalDate fechaInicio = LocalDate.now();
+            LocalDate fechaSiguienteCobro = fechaInicio.plusMonths(1);
+            LocalDate fechaTermino = fechaInicio.plusMonths(1);
+            Membresia m = new Membresia(plan, fechaInicio, fechaSiguienteCobro, fechaTermino);
+            m.setMedioPago(this.medioPago);
+            this.membresia = m;
+            this.medioPago.cobrar();
+        }
     }
 
     @Override
     public void actualizarAMembresiaPremium() {
-
+        if (this.medioPago == null) {
+            System.out.println("Agregue un medio de pago");
+        }
+        else {
+            String nombre = NombrePlanes.PREMIUM.name();
+            Plan plan = new Plan(nombre);
+            LocalDate fechaInicio = LocalDate.now();
+            LocalDate fechaSiguienteCobro = fechaInicio.plusMonths(1);
+            LocalDate fechaTermino = fechaInicio.plusMonths(1);
+            Membresia m = new Membresia(plan, fechaInicio, fechaSiguienteCobro, fechaTermino);
+            m.setMedioPago(this.medioPago);
+            this.membresia = m;
+            this.medioPago.cobrar();
+        }
     }
 
     @Override

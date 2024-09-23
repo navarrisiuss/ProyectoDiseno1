@@ -7,8 +7,9 @@ import java.util.List;
 public class Serie extends ContenidoMultimedia {
     private List<Temporada> temporadas;
 
-    public Serie(List<Temporada> temporadas) {
+    public Serie(Catalogo catalogo, List<Temporada> temporadas) {
         this.temporadas = temporadas;
+        catalogo.addContenidoMultimedia(this);
     }
 
     @Override
