@@ -69,6 +69,8 @@ public class Main {
         cuenta1.crearPerfil("Perfil4Lopesito", ":)", Lenguajes.SPANISH.name(), false);
         cuenta1.crearPerfil("Perfil5Lopesito", ":)", Lenguajes.SPANISH.name(), false);
         cuenta1.crearPerfil("Perfil6Lopesito", ":)", Lenguajes.SPANISH.name(), true);
+
+        cuenta2.crearPerfil("Curly", ">:V", Lenguajes.ENGLISH.name(), true);
     }
 
     public static Pelicula crearPelicula(String titulo, ArrayList<String> elenco, boolean isPago, ArrayList<String> categorias, String descripcion, int estrellas, String restriccionEdad, LocalDate fechaLanzamiento, String director) {
