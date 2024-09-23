@@ -4,6 +4,8 @@ import ClasesAbstractas.ContenidoMultimedia;
 import ClasesAbstractas.RegistroReproduccion;
 import Enums.RestriccionEdad;
 import Interfaces.Busqueda;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +30,7 @@ public class Perfil implements Busqueda {
             String restriccionContenido = contenidoMultimedia.getRestriccionEdad();
             String restriccionAdolescentes = RestriccionEdad.ADOLESCENTES.name();
             String restriccionAdultos = RestriccionEdad.ADULTOS.name();
-            if (restriccionContenido.equals(restriccionAdolescentes) || restriccionContenido.equals(restriccionAdultos)) {
-                return false;
-            } else {
-                return true;
-            }
+            return !(restriccionContenido.equals(restriccionAdolescentes) || restriccionContenido.equals(restriccionAdultos));
         } else {
             return true;
         }
@@ -149,6 +147,25 @@ public class Perfil implements Busqueda {
                 } else {
                     System.out.println(contenidoBuscado.toString());
                 }
+            }
+        }
+    }
+
+    public void registrarVisualizacion(ContenidoMultimedia contenido, Episodio episodio, LocalTime parteVista) {
+        LocalDate fechaActual = LocalDate.now();
+        LocalTime horaActual = LocalTime.now();
+
+        switch (contenido) {
+            case Pelicula pelicula -> {
+                RegistroReproduccionPelicula registroPelicula = new RegistroReproduccionPelicula(pelicula, fechaActual, horaActual);
+                registroContenidoVisto.add(registroPelicula);
+            }
+            case Serie serie -> {
+                RegistroReproduccionSerie registroSerie = new RegistroReproduccionSerie();
+                registroSerie = registroSerie.obtenerRegistroSerie(serie, this);
+                registroSerie.agregarEpisodioVisto(episodio, fechaActual, parteVista);
+            }
+            default -> {
             }
         }
     }

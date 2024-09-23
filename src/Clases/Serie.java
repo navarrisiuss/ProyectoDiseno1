@@ -10,6 +10,22 @@ public class Serie extends ContenidoMultimedia {
         this.temporadas = temporadas;
     }
 
+    public List<Temporada> getTemporadas() {
+        return temporadas;
+    }
+
+    public void setTemporadas(List<Temporada> temporadas) {
+        this.temporadas = temporadas;
+    }
+
+    public Episodio getUltimoEpisodio() {
+        if (temporadas != null && !temporadas.isEmpty()) {
+            Temporada ultimaTemporada = temporadas.get(temporadas.size() - 1);
+            return ultimaTemporada.getUltimoEpisodio();
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
         return "Serie{" +
