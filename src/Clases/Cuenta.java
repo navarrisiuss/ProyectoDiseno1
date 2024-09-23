@@ -87,6 +87,10 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
         }
     }
 
+    private void addPago(Pago pago) {
+        this.registroPagos.add(pago);
+    }
+
     @Override
     public String encriptarPassword(String password) {
         StringBuilder resultado = new StringBuilder();
@@ -109,7 +113,7 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
     }
 
     @Override
-    public void actualizarAMembresiaStardard() {
+    public void actualizarAMembresiaStardard(String moneda) {
         if (this.medioPago == null) {
             System.out.println("Agregue un medio de pago");
         } else {
@@ -122,11 +126,12 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
             m.setMedioPago(this.medioPago);
             this.membresia = m;
             this.medioPago.cobrar();
+            this.addPago(new Pago(moneda, m));
         }
     }
 
     @Override
-    public void actualizarAMembresiaPremium() {
+    public void actualizarAMembresiaPremium(String moneda) {
         if (this.medioPago == null) {
             System.out.println("Agregue un medio de pago");
         } else {
@@ -139,6 +144,7 @@ public class Cuenta implements InicioSesion, EncriptadorPassword, ActualizadorMe
             m.setMedioPago(this.medioPago);
             this.membresia = m;
             this.medioPago.cobrar();
+            this.addPago(new Pago(moneda, m));
         }
     }
 

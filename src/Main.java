@@ -63,7 +63,7 @@ public class Main {
             add("Terror");
         }}, "Jiturra!, un idiota", 2, RestriccionEdad.ADOLESCENTES.name(), LocalDate.of(2023, 12, 15), "Capitan");
 
-        cuenta1.actualizarAMembresiaStardard();
+        cuenta1.actualizarAMembresiaStardard(Monedas.CLP.name());
 
         cuentas.add(cuenta1);
         cuentas.add(cuenta2);
@@ -82,8 +82,8 @@ public class Main {
         PayPal paypal = new PayPal("capi@capi.cap", "d1b09b3f-8b45-42cf-94b9-61b65cd6b434");
         cuenta1.setMedioPago(tarjetaCredito);
         cuenta2.setMedioPago(paypal);
-        cuenta2.actualizarAMembresiaPremium();
-        cuenta1.actualizarAMembresiaStardard();
+        cuenta2.actualizarAMembresiaPremium(Monedas.CLP.name());
+        cuenta1.actualizarAMembresiaStardard(Monedas.CLP.name());
         cuenta1.comprarPelicula(peli1, Monedas.USD.name());
         cuenta1.comprarPelicula(peli2, Monedas.CLP.name());
         System.out.println(cuenta1.getPagosPeliculas());
