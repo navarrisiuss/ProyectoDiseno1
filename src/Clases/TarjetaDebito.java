@@ -12,20 +12,35 @@ public class TarjetaDebito extends MedioPago implements EncriptadorHash {
         this.numTarjeta = numTarjeta;
         this.rutTitular = rutTitular;
         this.rutBanco = rutBanco;
+        encriptarNumTarjeta();
     }
 
     @Override
-    public String encriptarNumTarjeta() {
-        return null;
+    public void encriptarNumTarjeta() {
+        if (this.numTarjeta.length() < 4) {
+            throw new IllegalArgumentException("El número de la tarjeta debe tener al menos 4 dígitos");
+        }
+        String ultimosCuatro = this.numTarjeta.substring(this.numTarjeta.length() - 4);
+        String ocultos = "*".repeat(this.numTarjeta.length() - 4);
+        this.numTarjeta = ocultos + ultimosCuatro;
     }
 
     @Override
-    public String encriptarCodigo() {
-        return null;
+    public void encriptarCodigo() {
+
     }
 
     @Override
     public void cobrar() {
         System.out.println("Cobrando con tarjeta de débito");
+    }
+
+    @Override
+    public String toString() {
+        return "TarjetaDebito{" +
+                "numTarjeta='" + numTarjeta + '\'' +
+                ", rutTitular='" + rutTitular + '\'' +
+                ", rutBanco='" + rutBanco + '\'' +
+                '}';
     }
 }

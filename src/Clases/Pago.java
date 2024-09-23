@@ -1,11 +1,12 @@
 package Clases;
 
-import java.time.LocalDate;
-
 import ClasesAbstractas.MedioPago;
 import Enums.Monedas;
+import Interfaces.ConvertidorMonedas;
 
-public class Pago {
+import java.time.LocalDate;
+
+public class Pago implements ConvertidorMonedas {
     private LocalDate fecha;
     private double monto;
     private String moneda;
@@ -22,12 +23,12 @@ public class Pago {
         convertirMoneda();
     }
 
-    private void convertirMoneda() {
+    @Override
+    public void convertirMoneda() {
         if (this.moneda.equals(Monedas.CLP.name())){
             this.monto = this.monto * 922 ;
         }
     }
-
 
     @Override
     public String toString() {
