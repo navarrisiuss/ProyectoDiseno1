@@ -69,8 +69,7 @@ public class RegistroReproduccionSerie extends RegistroReproduccion {
 
     public RegistroReproduccionSerie obtenerRegistroSerie(Serie serie, Perfil perfil) {
         for (RegistroReproduccion registro : perfil.getRegistroContenidoVisto()) {
-            if (registro instanceof RegistroReproduccionSerie) {
-                RegistroReproduccionSerie registroSerie = (RegistroReproduccionSerie) registro;
+            if (registro instanceof RegistroReproduccionSerie registroSerie) {
                 if (registroSerie.getSerieVista().equals(serie)) {
                     return registroSerie;
                 }

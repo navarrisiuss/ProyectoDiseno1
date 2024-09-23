@@ -4,8 +4,6 @@ import ClasesAbstractas.ContenidoMultimedia;
 import ClasesAbstractas.RegistroReproduccion;
 import Enums.RestriccionEdad;
 import Interfaces.Busqueda;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,25 +145,6 @@ public class Perfil implements Busqueda {
                 } else {
                     System.out.println(contenidoBuscado.toString());
                 }
-            }
-        }
-    }
-
-    public void registrarVisualizacion(ContenidoMultimedia contenido, Episodio episodio, LocalTime parteVista) {
-        LocalDate fechaActual = LocalDate.now();
-        LocalTime horaActual = LocalTime.now();
-
-        switch (contenido) {
-            case Pelicula pelicula -> {
-                RegistroReproduccionPelicula registroPelicula = new RegistroReproduccionPelicula(pelicula, fechaActual, horaActual);
-                registroContenidoVisto.add(registroPelicula);
-            }
-            case Serie serie -> {
-                RegistroReproduccionSerie registroSerie = new RegistroReproduccionSerie();
-                registroSerie = registroSerie.obtenerRegistroSerie(serie, this);
-                registroSerie.agregarEpisodioVisto(episodio, fechaActual, parteVista);
-            }
-            default -> {
             }
         }
     }
