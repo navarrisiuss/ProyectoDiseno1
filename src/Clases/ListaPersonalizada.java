@@ -20,6 +20,14 @@ public class ListaPersonalizada implements GenerarEnlacePublico {
         this.listaContenidoMultimedia.add(contenidoMultimedia);
     }
 
+    public void removeContenido(ContenidoMultimedia contenidoMultimedia) {
+        for (ContenidoMultimedia m : this.listaContenidoMultimedia) {
+            if (m.equals(contenidoMultimedia)) {
+                this.listaContenidoMultimedia.remove(contenidoMultimedia);
+            }
+        }
+    }
+
     public String getNombre() {
         return nombre;
     }

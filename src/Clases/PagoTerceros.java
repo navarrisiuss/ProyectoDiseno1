@@ -15,4 +15,12 @@ public class PagoTerceros extends MedioPago {
     public void cobrar() {
         System.out.println("Cobrando a terceros");
     }
+
+    @Override
+    public String toString() {
+        return "PagoTerceros{" +
+                "refCliente='" + refCliente + '\'' +
+                ", refProveedor='" + refProveedor + '\'' +
+                '}';
+    }
 }
