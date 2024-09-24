@@ -1,0 +1,48 @@
+title Diagrama General de Secuencias
+
+== Buscar películas por una categoría y mostrar resultados ==
+actor Perfil
+Perfil -> ContenidoMultimedia : Buscar por categoría(categoria)
+ContenidoMultimedia -> Pelicula : Filtrar por categoría(categoria)
+ContenidoMultimedia -> Serie : Filtrar por categoría(categoria)
+Pelicula --> ContenidoMultimedia : Devolver lista de películas
+Serie --> ContenidoMultimedia : Devolver lista de series
+ContenidoMultimedia --> Perfil : Mostrar resultados (listaPeliculas, listaSeries)
+
+== Realizar el pago de una membresía y generar el registro del pago ==
+actor Cuenta
+Cuenta -> Membresia : Seleccionar plan(plan)
+Membresia -> Plan : Obtener detalles del plan(plan)
+Plan --> Membresia : Detalles del plan(monto, pantallas, etc.)
+Membresia -> Cuenta : Notificar detalles del plan(monto, pantallas, etc.)
+Cuenta -> MedioPago : Procesar pago (monto, moneda)
+MedioPago --> Membresia : Confirmar pago
+Membresia -> RegistroPago : Registrar pago(fecha, monto, moneda)
+RegistroPago --> Membresia : Confirmación del registro de pago
+Membresia --> Cuenta : Confirmar actualización de la membresía
+
+== Realizar el pago para acceder a una película de pago ==
+actor Cuenta
+Cuenta -> Pelicula : Seleccionar película de pago
+Pelicula --> Cuenta : Solicitar detalles de pago
+Cuenta -> MedioPago : Procesar pago (monto, moneda)
+MedioPago --> Cuenta : Confirmar pago
+Cuenta -> CompraPelicula : Registrar compra(fecha, monto, moneda)
+CompraPelicula --> Cuenta : Confirmación de compra
+Cuenta -> Pelicula : Habilitar acceso a la película
+
+== Crear una lista personalizada y compartirla ==
+actor Perfil
+Perfil -> ListaPersonalizada : Crear lista(nombreLista)
+Perfil -> ContenidoMultimedia : Agregar contenido a la lista(contenido)
+ContenidoMultimedia --> ListaPersonalizada : Confirmar contenido agregado
+ListaPersonalizada -> Perfil : Generar enlace público
+ListaPersonalizada --> Perfil : Devolver enlace generado(enlace)
+
+== Eliminación de un elemento de media ==
+actor Perfil
+Perfil -> ContenidoMultimedia : Seleccionar contenido a eliminar
+Perfil -> ContenidoMultimedia : Eliminar contenido
+ContenidoMultimedia -> Favorito : Eliminar de favoritos (si existe)
+ContenidoMultimedia -> RegistroReproduccion : Eliminar de registro de reproducción (si existe)
+ContenidoMultimedia --> Perfil : Confirmar eliminación del contenido
