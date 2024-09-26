@@ -2,7 +2,6 @@ package ClasesAbstractas;
 
 import Clases.Episodio;
 import Clases.Pelicula;
-import Clases.Perfil;
 import Clases.RegistroReproduccionPelicula;
 import Clases.RegistroReproduccionSerie;
 import Clases.Serie;
@@ -11,17 +10,20 @@ import java.time.LocalTime;
 
 public abstract class RegistroReproduccion {
 
-    public void registrarVisualizacion(ContenidoMultimedia contenido, Episodio episodio, LocalTime parteVista, Perfil perfil) {
+    public void registrarVisualizacionSerie(Serie serie, Episodio episodio, LocalTime parteVista) {
         LocalDate fechaActual = LocalDate.now();
         LocalTime horaActual = LocalTime.now();
-        if (contenido instanceof Pelicula pelicula) {
-            RegistroReproduccionPelicula registroPelicula = new RegistroReproduccionPelicula(pelicula, fechaActual, horaActual);
-            perfil.getRegistroContenidoVisto().add(registroPelicula);
-        } else if (contenido instanceof Serie serie) {
-            RegistroReproduccionSerie registroSerie = new RegistroReproduccionSerie();
-            registroSerie = registroSerie.obtenerRegistroSerie(serie, perfil);
-            registroSerie.agregarEpisodioVisto(episodio, fechaActual, parteVista);
-        }
+        RegistroReproduccionSerie registroSerie = new RegistroReproduccionSerie();
+        registroSerie.agregarEpisodioVisto(episodio, fechaActual, parteVista);
     }
+
+    public void registrarVisualizacionPelicula(Pelicula pelicula, LocalTime parteVista) {
+        LocalDate fechaActual = LocalDate.now();
+        LocalTime horaActual = LocalTime.now();
+        RegistroReproduccionPelicula registroPelicula = new RegistroReproduccionPelicula(pelicula, fechaActual, horaActual);
+        registroPelicula.setPeliculaVista(pelicula);
+        registroPelicula.actualizarUltimaVista(fechaActual, horaActual);
+    }
+
 }
 

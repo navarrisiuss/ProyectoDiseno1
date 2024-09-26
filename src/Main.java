@@ -105,6 +105,10 @@ public class Main {
         System.out.println("-------------------------------");
         CATALOGO.eliminarContenidoMultimedia(peli1, cuentas);
         System.out.println(perfilTestLopesito);
+
+        Visualizacion visualizacion = new Visualizacion(perfilTestLopesito, peli2);
+        visualizacion.ver(perfilTestLopesito, peli2);
+        
     }
 
     public static Pelicula crearPelicula(Catalogo CATALOGO, String titulo, ArrayList<String> elenco, double costo,

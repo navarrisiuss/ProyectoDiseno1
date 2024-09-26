@@ -3,16 +3,17 @@ package Clases;
 import ClasesAbstractas.ContenidoMultimedia;
 
 public class Visualizacion {
-    private Cuenta cuenta;
+    private Perfil perfil;
     private ContenidoMultimedia contenido;
 
-    public Visualizacion(Cuenta cuenta, ContenidoMultimedia contenido) {
-        this.cuenta = cuenta;
+
+    public Visualizacion(Perfil perfil, ContenidoMultimedia contenido) {
+        this.perfil = perfil;
         this.contenido = contenido;
     }
 
-    public void ver() {
-        
+    public void ver(Perfil perfil, ContenidoMultimedia contenido) {
+        System.out.println("El perfil " + perfil.getNombre() + " está viendo " + contenido.getTitulo());
     }
 } 
 
